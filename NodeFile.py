@@ -5,7 +5,7 @@ from AnswerGroupFile import AnswerGroup
 from ConditionFile import GenericCondition
 
 
-class Node(ABC):
+class GenericNode(ABC):
     """
     Node is an abstract class - it is a framework for other classes so that both "BranchNode" and "LeafNode" (see below)
           objects can both be considered "Nodes," with similar behaviors. But you'll never actually create a plain,
@@ -18,7 +18,7 @@ class Node(ABC):
         pass
 
 # =====================================================================================================================
-class BranchNode(Node):
+class BranchNode(GenericNode):
     """
         holds one of our conditions, and links to two other Nodes, one used if this condition is "yes," and one for "no."
         When asked to make a prediction for an Instance, this node will check its condition and delegate the prediction
@@ -35,13 +35,13 @@ class BranchNode(Node):
         """
         super(BranchNode, self).__init__(depth)
         self.my_condition = condition
-        self.__yes_node__:Optional[Node] = None
-        self.__no_node__:Optional[Node] = None
+        self.__yes_node__:Optional[GenericNode] = None
+        self.__no_node__:Optional[GenericNode] = None
 
-    def set_yes_node(self, node: Node):
+    def set_yes_node(self, node: GenericNode):
         self.__yes_node__ = node
 
-    def set_no_node(self, node: Node):
+    def set_no_node(self, node: GenericNode):
         self.__no_node__ = node
 
     def predict(self, answer_group: AnswerGroup) -> str:
@@ -65,7 +65,7 @@ class BranchNode(Node):
         return f"{self.__yes_node__}{indent}{self.my_condition}\n{self.__no_node__}"
 
 # ====================================================================================================================
-class LeafNode(Node):
+class LeafNode(GenericNode):
     """
     The LeafNode is the end of the line in our questioning - it doesn't divide things up any further; it just gives
     us an answer to which category to recommend, regardless of the Instance. In other words, by the time we get to
