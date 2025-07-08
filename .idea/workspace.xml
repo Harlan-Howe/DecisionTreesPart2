@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="059e2588-030a-498e-9da3-665f57d31d2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/DecisionTreesPart2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AnswerGroupFile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ConditionFile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NodeFile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="059e2588-030a-498e-9da3-665f57d31d2b" name="Changes" comment="Improved documentation.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +105,37 @@
       <option name="presentableId" value="Default" />
       <updated>1752009148194</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <option name="closed" value="true" />
+      <created>1752011775863</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1752011775863</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Renamed plain &quot;Node&quot; to &quot;GenericNode.&quot;">
+      <option name="closed" value="true" />
+      <created>1752012676532</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752012676532</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Improved documentation.">
+      <option name="closed" value="true" />
+      <created>1752012701564</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1752012701564</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Renamed plain &quot;Node&quot; to &quot;GenericNode.&quot;" />
+    <MESSAGE value="Improved documentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved documentation." />
   </component>
 </project>
