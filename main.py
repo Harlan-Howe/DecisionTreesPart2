@@ -74,8 +74,10 @@ def ask_questions_and_predict():
         print(f"Attempt #{i + 1}:")
         cold_response = ask_likert_question("Is it cold outside?")
         dressed_response = ask_likert_question("Are you dressed warmly?")
+
         AG_to_check = AnswerGroup(attribute_names, [cold_response, dressed_response])
         print(f"Answer Group to check: {AG_to_check}")
+
         recommendation = decision_tree_root.predict(AG_to_check)
         print(f"The computer thinks you are: {recommendation}\n")
     # ------------------------------------
