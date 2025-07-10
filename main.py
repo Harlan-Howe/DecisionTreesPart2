@@ -1,67 +1,76 @@
 from ConditionFile import NumericCondition
-from NodeFile import BranchNode, LeafNode
+from NodeFile import BranchNode, LeafNode, GenericNode
 from AnswerGroupFile import AnswerGroup
-from typing import List
+from typing import List, Optional
 
 
-def build_condition_tree():
-    """
-    We're building a tree based on 2 questions, "Is it cold outside 1-5" and "Are you dressed warmly? 1-5"
-    that will classify the answers either "dressed appropriately" or "dressed inappropriately." Note the
-    standard for the warm dress depends on whether it is cold or not.
+class DecisionTree:
 
-                                      +-Root-----------+
-                                      | 1.cold <= 3    |
-                                      +----------------+
-                                    /                   \
-                                  yes                   no
-                                  /                       \
-                    +-node_a ------------- +             +-node_b --------------+
-                    |  2.dressed_warm <3.5 |             |  3.dressed_warm < 2.5|
-                    +--------------------- +             +----------------------+
-                   /                \                        /                  \
-                yes                  no                    yes                  no
-                /                     \                   /                       \
-              [Appropriate]     [Inappropriate]       [Inappropriate]           [Appropriate]
+    def __init__(self):
+        self.decision_tree_root: Optional[GenericNode] = None
 
-    :return: None
-    """
-    global decision_tree_root
-    # -------------------------------------
+    def build_condition_tree(self):
+        """
+        We're building a tree based on 2 questions, "Is it cold outside 1-5" and "Are you dressed warmly? 1-5"
+        that will classify the answers either "dressed appropriately" or "dressed inappropriately." Note the
+        standard for the warm dress depends on whether it is cold or not.
 
-    # TODO: Replace this code with your tree-building code!
-    # set up the conditions we'll be using.
-    first_condition = NumericCondition(attribute_name="cold", threshold=3)
-    second_condition = NumericCondition(attribute_name="dressed_warm",
-                                        threshold=3.5)  # Note that conditions 2 and 3 use the same question, but
-    third_condition = NumericCondition(attribute_name="dressed_warm", threshold=2.5)  # different thresholds
+                                          +-Root-----------+
+                                          | 1.cold <= 3    |
+                                          +----------------+
+                                        /                   \
+                                      yes                   no
+                                      /                       \
+                        +-node_a ------------- +             +-node_b --------------+
+                        |  2.dressed_warm <3.5 |             |  3.dressed_warm < 2.5|
+                        +--------------------- +             +----------------------+
+                       /                \                        /                  \
+                    yes                  no                    yes                  no
+                    /                     \                   /                       \
+                  [Appropriate]     [Inappropriate]       [Inappropriate]           [Appropriate]
 
-    # create the first ("root") node
-    decision_tree_root = BranchNode(first_condition, depth=0)
-    # create the nodes meant for first node's children
-    node_a = BranchNode(second_condition, depth=1)
-    node_b = BranchNode(third_condition, depth=1)
+        :return: None
+        """
 
-    # link the root node to its children
-    decision_tree_root.set_yes_node(node_a)
-    decision_tree_root.set_no_node(node_b)
+        # -------------------------------------
 
-    # create/link the leaf nodes as child nodes for node_a
-    node_a.set_yes_node(LeafNode("Dressed Appropriately", depth=2))
-    node_a.set_no_node(LeafNode("Dressed Inappropriately", depth=2))
+        # TODO: Replace this code with your tree-building code!
+        # set up the conditions we'll be using.
+        first_condition = NumericCondition(attribute_name="cold", threshold=3)
+        second_condition = NumericCondition(attribute_name="dressed_warm",
+                                            threshold=3.5)  # Note that conditions 2 and 3 use the same question, but
+        third_condition = NumericCondition(attribute_name="dressed_warm", threshold=2.5)  # different thresholds
 
-    # create/link the leaf nodes as child nodes for node_b
-    node_b.set_yes_node(LeafNode("Dressed Inappropriately", depth=2))
-    node_b.set_no_node(LeafNode("Dressed Appropriately", depth=2))
-    # -----------------------------------
+        # create the first ("root") node
+        self.decision_tree_root = BranchNode(first_condition, depth=0)
+        # create the nodes meant for first node's children
+        node_a = BranchNode(second_condition, depth=1)
+        node_b = BranchNode(third_condition, depth=1)
 
-    print("---------------------------------------------")
-    print("Describing Tree:")
-    print(decision_tree_root)
-    print("---------------------------------------------")
+        # link the root node to its children
+        self.decision_tree_root.set_yes_node(node_a)
+        self.decision_tree_root.set_no_node(node_b)
 
+        # create/link the leaf nodes as child nodes for node_a
+        node_a.set_yes_node(LeafNode("Dressed Appropriately", depth=2))
+        node_a.set_no_node(LeafNode("Dressed Inappropriately", depth=2))
 
-def ask_questions_and_predict():
+        # create/link the leaf nodes as child nodes for node_b
+        node_b.set_yes_node(LeafNode("Dressed Inappropriately", depth=2))
+        node_b.set_no_node(LeafNode("Dressed Appropriately", depth=2))
+        # -----------------------------------
+
+        print("---------------------------------------------")
+        print("Describing Tree:")
+        print(self.decision_tree_root)
+        print("---------------------------------------------")
+
+    def predict(self, AG_to_check: AnswerGroup) -> str:
+        return self.decision_tree_root.predict(AG_to_check)
+
+# ================================================================= END OF DECISION TREE CLASS
+
+def ask_questions_and_predict(tree: DecisionTree):
     """
     We're going to ask both questions of the user and then have the computer tell us what it thinks about
     our weather/clothing options.
@@ -78,7 +87,7 @@ def ask_questions_and_predict():
         AG_to_check = AnswerGroup(attribute_names, [cold_response, dressed_response])
         print(f"Answer Group to check: {AG_to_check}")
 
-        recommendation = decision_tree_root.predict(AG_to_check)
+        recommendation = tree.predict(AG_to_check)
         print(f"The computer thinks you are: {recommendation}\n")
     # ------------------------------------
 
@@ -134,6 +143,7 @@ def choose_from_list(prompt: str, list_of_choices: List[str]) -> str:
 
 
 if __name__ == '__main__':
-    build_condition_tree()
-    ask_questions_and_predict()
+    the_tree = DecisionTree
+    the_tree.build_condition_tree()
+    ask_questions_and_predict(the_tree)
 
